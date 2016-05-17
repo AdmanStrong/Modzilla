@@ -1,0 +1,35 @@
+$blue: #176188
+
+//background
+#background
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 0
+  width: 100%
+  height: 100%
+  img
+    width: 120%
+    position: absolute
+    top: -10%
+    left: -10%
+    max-width: none
+    transition: all 6s
+    opacity: 0
+    &.feature
+      opacity: 1
+    @media screen and (min-width: $mobile-breakpoint-val)
+      &.feature
+        transform: scale(1.2, 1.2)
+      &.moveleft
+        left: -16%
+      &.moveright
+        left: -4%
+      &.moveup
+        top: -16%
+      &.movedown
+        top: -4%
+  &.taller
+    img
+      width: auto
+      height: 120%

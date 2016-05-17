@@ -1,0 +1,25 @@
+%col
+  box-sizing: border-box
+  position: relative
+  padding: $gutter/2
+  display: inline-block
+  font-size: 1rem
+.row
+  box-sizing: border-box
+  position: relative
+  padding: $gutter/2
+  display: block
+  font-size: 0
+  &:not(.no-break) %col
+    @media #{$mobile-breakpoint}
+      width: 100%
+      display: block
+.col
+  @extend %col
+  width: 100%
+  
+@for $cols from $columns-min through $columns-max
+  @for $colsize from 1 through $cols - 1
+    .col#{$colsize}-#{$cols}
+      @extend %col
+      width: percentage($colsize/$cols)
