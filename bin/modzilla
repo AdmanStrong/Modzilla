@@ -28,6 +28,10 @@ program
   .version(version)
   .usage('[options] [dir]')
   .option('-A, --authra', 'add authra user management module')
+  .option('-S, --sweeps', 'add sweeps module')
+  .option('-I, --instantwin', 'add instant win module')
+  .option('-PU, --photoupload', 'add photo upload module')
+  .option('    --admin', 'add admin moderation section')
   .option('-e, --ejs', 'add ejs engine support (defaults to jade)')
   .option('    --hbs', 'add handlebars engine support')
   .option('-H, --hogan', 'add hogan.js engine support')
@@ -108,6 +112,8 @@ function createApplication(app_name, path) {
   //front end JavaScript
   var gaScript = loadTemplate('js/analytics-events.js');
   var babel = loadTemplate('js/babel-polyfill.min.js');
+  var hammer = loadTemplate('js/hammer.min.js');
+  var babelrc = loadTemplate('js/.babelrc');
   var mainJS = loadTemplate('js/src/main.js');
 
   // CSS
@@ -123,12 +129,14 @@ function createApplication(app_name, path) {
 
   mkdir(path, function(){
     write(path + "/gulpfile.js", gulp);
+    write(path + "/.babelrc", babelrc);
 
     mkdir(path + '/public');
     mkdir(path + '/public/javascripts', function() {
       //add custom javascript files
       write(path + '/public/javascripts/analytics-events.js', gaScript);
       write(path + '/public/javascripts/babel-polyfill.js', babel);
+      write(path + '/public/javascripts/hammer.min.js', hammer);
 
       mkdir(path + "/public/javascripts/src", function() {
         write(path + '/public/javascripts/src/main.js', mainJS);
@@ -240,6 +248,7 @@ function createApplication(app_name, path) {
       pkg.dependencies['authra'] = 'git+https://authrauser:AuthraAccess1@in-marketing-services.git.beanstalkapp.com/authra.git#v1.6';
       app = app.replace('{authraInclude}', 'var authra = require(\'authra\');');
       app = app.replace('{authraRouting}', 'app = authra.addRoutes(app);');
+      console.log('   Added Authra Module    ');
     } else {
       app = app.replace('{authraInclude}', '');
       app = app.replace('{authraRouting}', '');
