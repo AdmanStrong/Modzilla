@@ -1,4 +1,4 @@
-%col
+[class^=col]
   box-sizing: border-box
   position: relative
   padding: $gutter/2
@@ -15,11 +15,13 @@
       width: 100%
       display: block
 .col
-  @extend %col
   width: 100%
+  
+=custom-col($width)
+  @extend %col
+  width: $width
   
 @for $cols from $columns-min through $columns-max
   @for $colsize from 1 through $cols - 1
     .col#{$colsize}-#{$cols}
-      @extend %col
       width: percentage($colsize/$cols)
